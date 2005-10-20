@@ -14,3 +14,7 @@ Thu Oct 20 16:08:29 2005                       Gordon Rowell (gordonr)
 
 Update dependency to use patch grub. Remove grub-install-raid
 ----------------------------------------------------------------------
+Thu Oct 20 17:00:19 2005                       Gordon Rowell (gordonr)
+
+Reinstate simplified grub-install-raid in post-{install,upgrade}
+----------------------------------------------------------------------
