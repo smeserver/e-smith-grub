@@ -2,7 +2,7 @@ Summary: e-smith module to configure grub
 %define name e-smith-grub
 Name: %{name}
 %define version 0.0.1
-%define release 14
+%define release 14sme01
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -18,18 +18,23 @@ Patch6: e-smith-grub-0.0.1-11.mitel_patch
 Patch7: e-smith-grub-0.0.1-12.mitel_patch
 Patch8: e-smith-grub-0.0.1-13.mitel_patch
 Patch9: e-smith-grub-0.0.1-14.mitel_patch
+Patch100: e-smith-grub-0.0.1-deletegrubinstallraid.patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildRequires: e-smith-devtools
 BuildArchitectures: noarch
 Requires: e-smith-lib
-Requires: grub
+Requires: grub >= 0.95-13sme01
 Provides: system-logos
 Obsoletes: e-smith-lilo
 Obsoletes: lilo
 AutoReqProv: no
 
 %changelog
+* Thu Oct 20 2005 Gordon Rowell <gordonr@gormand.com.au> 0.0.1-14sme01
+- Update Requires to depend on patched grub version
+- Delete grub-install-raid script and links [SF: 1233029]
+
 * Mon Oct 17 2005 Gordon Rowell <gordonr@e-smith.com>
 - [0.0.1-14]
 - Type on grub-install-raid log output [MN00100874, SF: 1233029]
@@ -106,6 +111,8 @@ e-smith server enhancement to grub bootloader.
 %patch7 -p1
 %patch8 -p1
 %patch9 -p1
+
+%patch100 -p1
 
 %build
 gzip root/boot/grub/tux.xpm
