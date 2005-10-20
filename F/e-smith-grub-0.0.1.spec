@@ -2,7 +2,7 @@ Summary: e-smith module to configure grub
 %define name e-smith-grub
 Name: %{name}
 %define version 0.0.1
-%define release 11
+%define release 14
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -15,6 +15,9 @@ Patch3: e-smith-grub-0.0.1-05.mitel_patch
 Patch4: e-smith-grub-0.0.1-07.mitel_patch
 Patch5: e-smith-grub-0.0.1-08.mitel_patch
 Patch6: e-smith-grub-0.0.1-11.mitel_patch
+Patch7: e-smith-grub-0.0.1-12.mitel_patch
+Patch8: e-smith-grub-0.0.1-13.mitel_patch
+Patch9: e-smith-grub-0.0.1-14.mitel_patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildRequires: e-smith-devtools
@@ -27,6 +30,22 @@ Obsoletes: lilo
 AutoReqProv: no
 
 %changelog
+* Mon Oct 17 2005 Gordon Rowell <gordonr@e-smith.com>
+- [0.0.1-14]
+- Type on grub-install-raid log output [MN00100874, SF: 1233029]
+
+* Mon Oct 17 2005 Gordon Rowell <gordonr@e-smith.com>
+- [0.0.1-13]
+- Add grub-install-raid action to force to install onto a RAID1 set
+  [MN00100874, SF: 1233029]
+
+* Mon Sep 19 2005 Charlie Brady <charlieb@e-smith.com>
+- [0.0.1-12]
+- Preserve current default setting in grub.conf template if
+  none of the available kernels matches the currently running
+  kernel. This will allow anaconda SMP detection to determine
+  initial boot setting. [MN00097833]
+
 * Tue Aug 30 2005 Charlie Brady <charlieb@e-smith.com>
 - [0.0.1-11]
 - Move splashscreen symlink into e-smith-support RPM.
@@ -84,6 +103,9 @@ e-smith server enhancement to grub bootloader.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
+%patch7 -p1
+%patch8 -p1
+%patch9 -p1
 
 %build
 gzip root/boot/grub/tux.xpm
