@@ -1,0 +1,59 @@
+Index: e-smith-grub/e-smith-grub.spec
+diff -u e-smith-grub/root/etc/e-smith/events/actions/grub-install-raid:1.2 e-smith-grub/root/etc/e-smith/events/actions/grub-install-raid:1.3
+--- e-smith-grub/root/etc/e-smith/events/actions/grub-install-raid:1.2	Mon Oct 17 01:37:03 2005
++++ e-smith-grub/root/etc/e-smith/events/actions/grub-install-raid	Fri Oct 21 13:50:46 2005
+@@ -34,7 +34,9 @@
+ echo "Calling grub-install on $HDZERO"
+ 
+ grub --batch <<HERE
+-install --stage2=/boot/grub/stage2 (hd0,0)/grub/stage1 (hd0) (hd0,0)/grub/stage2 p /grub/grub.conf
++device (hd0) $HDZERO
++root (hd0,0)
++setup (hd0)
+ HERE
+ 
+ HDONE=$(grep hd1 /boot/grub/device.map | awk '{ print $2 }')
+@@ -48,7 +50,9 @@
+ echo "Calling grub-install on $HDONE"
+ 
+ grub --batch <<HERE
+-install --stage2=/boot/grub/stage2 (hd1,0)/grub/stage1 (hd1) (hd1,0)/grub/stage2 p /grub/grub.conf
++device (hd0) $HDONE
++root (hd0,0)
++setup (hd0)
+ quit
+ HERE
+ 
+Index: e-smith-grub/root/etc/e-smith/templates/boot/grub/grub.conf/FixRoot
+diff -u /dev/null e-smith-grub/root/etc/e-smith/templates/boot/grub/grub.conf/FixRoot:1.1
+--- /dev/null	Fri Oct 21 13:51:36 2005
++++ e-smith-grub/root/etc/e-smith/templates/boot/grub/grub.conf/FixRoot	Fri Oct 21 13:50:46 2005
+@@ -0,0 +1,5 @@
++{
++    @lines = map { s/root \(hd1,0\)/root (hd0,0)/ ; $_ } @lines;
++    $OUT = "";
++}
++
+Index: e-smith-grub/root/etc/e-smith/templates/boot/grub/grub.conf/UpdateDefault
+diff -u e-smith-grub/root/etc/e-smith/templates/boot/grub/grub.conf/UpdateDefault:1.2 e-smith-grub/root/etc/e-smith/templates/boot/grub/grub.conf/UpdateDefault:1.3
+--- e-smith-grub/root/etc/e-smith/templates/boot/grub/grub.conf/UpdateDefault:1.2	Mon Sep 19 14:56:48 2005
++++ e-smith-grub/root/etc/e-smith/templates/boot/grub/grub.conf/UpdateDefault	Fri Oct 21 13:50:46 2005
+@@ -21,5 +21,6 @@
+         }
+         $i++;
+     }
++    @lines = map { s/default=\d+/default=$default_index/; $_ } @lines;
+     $OUT = "";
+ }
+Index: e-smith-grub/root/etc/e-smith/templates/boot/grub/grub.conf/template-end
+diff -u e-smith-grub/root/etc/e-smith/templates/boot/grub/grub.conf/template-end:1.1 e-smith-grub/root/etc/e-smith/templates/boot/grub/grub.conf/template-end:1.2
+--- e-smith-grub/root/etc/e-smith/templates/boot/grub/grub.conf/template-end:1.1	Fri Jun 24 12:27:09 2005
++++ e-smith-grub/root/etc/e-smith/templates/boot/grub/grub.conf/template-end	Fri Oct 21 13:50:46 2005
+@@ -1,7 +1,6 @@
+ {
+     foreach (@lines)
+     {
+-	s/default=\d+/default=$default_index/;
+ 	$OUT .= "$_\n";
+     }
+ }

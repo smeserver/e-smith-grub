@@ -2,7 +2,7 @@ Summary: e-smith module to configure grub
 %define name e-smith-grub
 Name: %{name}
 %define version 0.0.1
-%define release 14sme02
+%define release 21
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -18,30 +18,64 @@ Patch6: e-smith-grub-0.0.1-11.mitel_patch
 Patch7: e-smith-grub-0.0.1-12.mitel_patch
 Patch8: e-smith-grub-0.0.1-13.mitel_patch
 Patch9: e-smith-grub-0.0.1-14.mitel_patch
-Patch100: e-smith-grub-0.0.1-grubinstallraid.patch
+Patch10: e-smith-grub-0.0.1-15.mitel_patch
+Patch11: e-smith-grub-0.0.1-16.mitel_patch
+Patch12: e-smith-grub-0.0.1-17.mitel_patch
+Patch13: e-smith-grub-0.0.1-18.mitel_patch
+Patch14: e-smith-grub-0.0.1-19.mitel_patch
+Patch15: e-smith-grub-0.0.1-20.mitel_patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildRequires: e-smith-devtools
 BuildArchitectures: noarch
-Requires: e-smith-lib
-Requires: grub >= 0.95-13sme01
+Requires: e-smith-lib >= 1.15.3-17
+Requires: grub
 Provides: system-logos
 Obsoletes: e-smith-lilo
+Provides: e-smith-bootloader
 Obsoletes: lilo
 AutoReqProv: no
 
 %changelog
-* Thu Oct 20 2005 Gordon Rowell <gordonr@gormand.com.au> 0.0.1-14sme02
-- Re-instate grub-install-raid in post-upgrade/post-install [SF: 1233029]
-- Change it to just call "grub-install --recheck /dev/md1"
+* Wed Nov 30 2005 Gordon Rowell <gordonr@gormand.com.au> 0.0.1-21
+- Bump release number only
 
-* Thu Oct 20 2005 Gordon Rowell <gordonr@gormand.com.au> 0.0.1-14sme01
-- Update Requires to depend on patched grub version
-- Delete grub-install-raid script and links [SF: 1233029]
+* Tue Nov 15 2005 Gordon Rowell <gordonr@e-smith.com>
+- [0.0.1-20]
+- Add defined test on $EVENT  for cleanliness [MN00106104]
+
+* Tue Nov 15 2005 Gordon Rowell <gordonr@e-smith.com>
+- [0.0.1-19]
+- Only update default kernel choice in the local event [MN00106104]
+- Update dependency on e-smith-lib to require version of 
+  generic_template_expand which sets EVENT in the template hash
+
+* Sun Nov 13 2005 Gordon Rowell <gordonr@e-smith.com>
+- [0.0.1-18]
+- Correct path in last fix [SF: 1335937]
+
+* Mon Oct 24 2005 Charlie Brady <charlieb@e-smith.com>
+- [0.0.1-17]
+- Create "update-bootloader" symlink in /sbin/e-smith, for use by add_mirror
+  script. Add "Provides: e-smith-bootloader", so that e-smith-base can add
+  a generic "Requires:". [SF: 1335937]
+
+* Fri Oct 21 2005 Charlie Brady <charlieb@e-smith.com>
+- [0.0.1-16]
+- Expand grub.conf template in post-install and post-upgrade, to correct
+  errant hd1,0 references. [SF: 1233029]
+
+* Fri Oct 21 2005 Charlie Brady <charlieb@e-smith.com>
+- [0.0.1-15]
+- Fix errant hd1,0 references in /boot/grub/grub.conf. This is just a
+  workaround - we should be able to fix anaconda/booty so that they never
+  appear. Tidy up UpdateDefault while we are here. [SF: 1233029]
+- Update grub-install-raid so that it runs grub for each disk, with each
+  device set as hd0. [SF: 1233029]
 
 * Mon Oct 17 2005 Gordon Rowell <gordonr@e-smith.com>
 - [0.0.1-14]
-- Type on grub-install-raid log output [MN00100874, SF: 1233029]
+- Typo in grub-install-raid log output [MN00100874, SF: 1233029]
 
 * Mon Oct 17 2005 Gordon Rowell <gordonr@e-smith.com>
 - [0.0.1-13]
@@ -115,7 +149,12 @@ e-smith server enhancement to grub bootloader.
 %patch7 -p1
 %patch8 -p1
 %patch9 -p1
-%patch100 -p1
+%patch10 -p1
+%patch11 -p1
+%patch12 -p1
+%patch13 -p1
+%patch14 -p1
+%patch15 -p1
 
 %build
 gzip root/boot/grub/tux.xpm
