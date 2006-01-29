@@ -1,0 +1,37 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-grub-0.0.1/createlinks mezzanine_patched_e-smith-grub-0.0.1/createlinks
+--- e-smith-grub-0.0.1/createlinks	2006-01-30 10:26:40.581065490 +1100
++++ mezzanine_patched_e-smith-grub-0.0.1/createlinks	2006-01-30 10:26:08.175703659 +1100
+@@ -9,6 +9,6 @@
+ 	    post-upgrade
+ 	));
+ 
+-event_link("grub-install-raid", $_, "90") for (qw(post-install post-upgrade));
++event_link("grub-install-raid", $_, "90") for (qw(post-install));
+ 
+ safe_symlink("/etc/e-smith/events/actions/grub-install-raid", "root/sbin/e-smith/update-bootloader")
+diff -Nur -x '*.orig' -x '*.rej' e-smith-grub-0.0.1/root/etc/e-smith/events/actions/grub-install-raid mezzanine_patched_e-smith-grub-0.0.1/root/etc/e-smith/events/actions/grub-install-raid
+--- e-smith-grub-0.0.1/root/etc/e-smith/events/actions/grub-install-raid	2006-01-30 10:26:40.576066360 +1100
++++ mezzanine_patched_e-smith-grub-0.0.1/root/etc/e-smith/events/actions/grub-install-raid	2006-01-30 10:25:38.242911628 +1100
+@@ -1,6 +1,6 @@
+ #!/bin/sh
+ #----------------------------------------------------------------------
+-# Copyright (C) 2005 Mitel Networks Corporation
++# Copyright (C) 2005-2006 Mitel Networks Corporation
+ #
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+@@ -24,12 +24,11 @@
+ 
+ # We should be able to do grub-install --recheck /dev/md1, but not in
+ # this version of grub-install
+-# We need to rebuild the device.map file since $NEW didn't exist
++# We need to rebuild the device.map file since $HDONE didn't exist
+ # at install time.
+ echo "Forcing grub to rescan devices"
+ 
+-grub-install --recheck $HDZERO
+-# grub-install /dev/$NEW
++grub-install --no-floppy --recheck $HDZERO
+ 
+ echo "Calling grub-install on $HDZERO"
+ 
