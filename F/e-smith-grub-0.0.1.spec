@@ -38,7 +38,7 @@ Obsoletes: lilo
 AutoReqProv: no
 
 %changelog
-* Wed Nov 30 2005 Gordon Rowell <gordonr@gormand.com.au> 0.0.1-22
+* Mon Jan 30 2006 Gordon Rowell <gordonr@gormand.com.au> 0.0.1-22
 - Add --no-floppy to grub-install call in grub-install-raid [SME: 151]
 - Don't call grub-install-raid in post-upgrade, only post-install  [SME: 151]
 - Cleaned up old comments in grub-install-raid
