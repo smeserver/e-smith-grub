@@ -40,7 +40,7 @@ Obsoletes: lilo
 AutoReqProv: no
 
 %changelog
-* Wed Feb 7 2006 Gordon Rowell <gordonr@gormand.com.au> 0.0.1-24
+* Wed Feb 8 2006 Gordon Rowell <gordonr@gormand.com.au> 0.0.1-24
 - Add --no-floppy to the grub --batch calls. Systems with the
   floppy controller enabled but no floppy drive installed "hang"
   in post-upgrade otherwise. [SME: 696]
