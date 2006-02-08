@@ -2,7 +2,7 @@ Summary: e-smith module to configure grub
 %define name e-smith-grub
 Name: %{name}
 %define version 0.0.1
-%define release 23
+%define release 24
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -26,6 +26,7 @@ Patch14: e-smith-grub-0.0.1-19.mitel_patch
 Patch15: e-smith-grub-0.0.1-20.mitel_patch
 Patch16: e-smith-grub-0.0.1-NoFloppyOnlyPostInstall.patch 
 Patch17: e-smith-grub-0.0.1-PutBackPostUpgrade.patch
+Patch18: e-smith-grub-0.0.1-NoFloppy.patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildRequires: e-smith-devtools
@@ -39,6 +40,11 @@ Obsoletes: lilo
 AutoReqProv: no
 
 %changelog
+* Wed Feb 7 2006 Gordon Rowell <gordonr@gormand.com.au> 0.0.1-24
+- Add --no-floppy to the grub --batch calls. Systems with the
+  floppy controller enabled but no floppy drive installed "hang"
+  in post-upgrade otherwise. [SME: 696]
+
 * Mon Jan 30 2006 Gordon Rowell <gordonr@gormand.com.au> 0.0.1-23
 - Re-add call to grub-install-raid in post-upgrade [SME: 151]
 
@@ -167,6 +173,7 @@ e-smith server enhancement to grub bootloader.
 %patch15 -p1
 %patch16 -p1
 %patch17 -p1
+%patch18 -p1
 
 %build
 gzip root/boot/grub/tux.xpm
