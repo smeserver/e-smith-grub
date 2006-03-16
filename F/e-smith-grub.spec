@@ -1,32 +1,13 @@
 Summary: e-smith module to configure grub
 %define name e-smith-grub
 Name: %{name}
-%define version 0.0.1
-%define release 24
+%define version 1.0.0
+%define release 01
 Version: %{version}
 Release: %{release}
 License: GPL
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
-Patch0: e-smith-grub-0.0.1-02.mitel_patch
-Patch1: e-smith-grub-0.0.1-03.mitel_patch
-Patch2: e-smith-grub-0.0.1-04.mitel_patch
-Patch3: e-smith-grub-0.0.1-05.mitel_patch
-Patch4: e-smith-grub-0.0.1-07.mitel_patch
-Patch5: e-smith-grub-0.0.1-08.mitel_patch
-Patch6: e-smith-grub-0.0.1-11.mitel_patch
-Patch7: e-smith-grub-0.0.1-12.mitel_patch
-Patch8: e-smith-grub-0.0.1-13.mitel_patch
-Patch9: e-smith-grub-0.0.1-14.mitel_patch
-Patch10: e-smith-grub-0.0.1-15.mitel_patch
-Patch11: e-smith-grub-0.0.1-16.mitel_patch
-Patch12: e-smith-grub-0.0.1-17.mitel_patch
-Patch13: e-smith-grub-0.0.1-18.mitel_patch
-Patch14: e-smith-grub-0.0.1-19.mitel_patch
-Patch15: e-smith-grub-0.0.1-20.mitel_patch
-Patch16: e-smith-grub-0.0.1-NoFloppyOnlyPostInstall.patch 
-Patch17: e-smith-grub-0.0.1-PutBackPostUpgrade.patch
-Patch18: e-smith-grub-0.0.1-NoFloppy.patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildRequires: e-smith-devtools
@@ -40,6 +21,9 @@ Obsoletes: lilo
 AutoReqProv: no
 
 %changelog
+* Thu Mar 16 2006 Gordon Rowell <gordonr@gormand.com.au> 1.0.0-01
+- Roll stable stream version. [SME: 1016]
+
 * Wed Feb 8 2006 Gordon Rowell <gordonr@gormand.com.au> 0.0.1-24
 - Add --no-floppy to the grub --batch calls. Systems with the
   floppy controller enabled but no floppy drive installed "hang"
@@ -155,29 +139,8 @@ e-smith server enhancement to grub bootloader.
 
 %prep
 %setup
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
-%patch10 -p1
-%patch11 -p1
-%patch12 -p1
-%patch13 -p1
-%patch14 -p1
-%patch15 -p1
-%patch16 -p1
-%patch17 -p1
-%patch18 -p1
 
 %build
-gzip root/boot/grub/tux.xpm
-gzip root/boot/grub/linuxinside.xpm
 perl createlinks
 
 %install
