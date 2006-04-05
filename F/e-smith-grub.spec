@@ -2,12 +2,13 @@ Summary: e-smith module to configure grub
 %define name e-smith-grub
 Name: %{name}
 %define version 1.0.0
-%define release 01
+%define release 01test01
 Version: %{version}
 Release: %{release}
 License: GPL
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
+Patch0: e-smith-grub-1.0.0-NoGrubInstallRAID.patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildRequires: e-smith-devtools
@@ -21,6 +22,9 @@ Obsoletes: lilo
 AutoReqProv: no
 
 %changelog
+* Thu Mar 16 2006 Gordon Rowell <gordonr@gormand.com.au> 1.0.0-01test01
+- Remove grub-install-raid from post-{install,upgrade} [SME: 1197]
+
 * Thu Mar 16 2006 Gordon Rowell <gordonr@gormand.com.au> 1.0.0-01
 - Roll stable stream version. [SME: 1016]
 
@@ -139,6 +143,7 @@ e-smith server enhancement to grub bootloader.
 
 %prep
 %setup
+%patch0 -p1
 
 %build
 perl createlinks
