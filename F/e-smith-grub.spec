@@ -2,7 +2,7 @@ Summary: e-smith module to configure grub
 %define name e-smith-grub
 Name: %{name}
 %define version 1.0.0
-%define release 01test01
+%define release 02
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -22,6 +22,9 @@ Obsoletes: lilo
 AutoReqProv: no
 
 %changelog
+* Thu Mar 16 2006 Gordon Rowell <gordonr@gormand.com.au> 1.0.0-02
+- Rebuild without the test release tag [SME: 1197]
+
 * Thu Mar 16 2006 Gordon Rowell <gordonr@gormand.com.au> 1.0.0-01test01
 - Remove grub-install-raid from post-{install,upgrade} [SME: 1197]
 
