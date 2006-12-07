@@ -2,15 +2,15 @@ Summary: e-smith module to configure grub
 %define name e-smith-grub
 Name: %{name}
 %define version 1.0.0
-%define release 03
+%define release 4
 Version: %{version}
-Release: %{release}
+Release: %smerelease %{release}
+Packager: %{_packager}
 License: GPL
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
 Patch0: e-smith-grub-1.0.0-NoGrubInstallRAID.patch
 Patch1: e-smith-grub-1.0.0-NoGrubInstallRAID.patch2
-Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildRequires: e-smith-devtools
 BuildArchitectures: noarch
@@ -23,6 +23,10 @@ Obsoletes: lilo
 AutoReqProv: no
 
 %changelog
+* Thu Dec 07 2006 Shad L. Lords <slords@mail.com>
+- Update to new release naming.  No functional changes.
+- Make Packager generic
+
 * Tue Dec 05 2006 Shad L. Lords <slords@mail.com> 1.0.0-03
 - Remove grub-install-raid completely as it doesn't handle more 
   than raid1 [SME: 2131]
