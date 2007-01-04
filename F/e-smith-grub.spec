@@ -2,7 +2,7 @@ Summary: e-smith module to configure grub
 %define name e-smith-grub
 Name: %{name}
 %define version 1.0.0
-%define release 4
+%define release 5
 Version: %{version}
 Release: %smerelease %{release}
 Packager: %{_packager}
@@ -11,6 +11,7 @@ Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
 Patch0: e-smith-grub-1.0.0-NoGrubInstallRAID.patch
 Patch1: e-smith-grub-1.0.0-NoGrubInstallRAID.patch2
+Patch2: e-smith-grub-1.0.0-updatekernel.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildRequires: e-smith-devtools
 BuildArchitectures: noarch
@@ -23,6 +24,9 @@ Obsoletes: lilo
 AutoReqProv: no
 
 %changelog
+* Thu Jan 04 2006 Shad L. Lords <slords@mail.com> 1.0.0-5
+- Update /etc/sysconfig/kernel on boot too. [SME: 1930]
+
 * Thu Dec 07 2006 Shad L. Lords <slords@mail.com>
 - Update to new release naming.  No functional changes.
 - Make Packager generic
@@ -157,9 +161,12 @@ e-smith server enhancement to grub bootloader.
 %setup
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 perl createlinks
+mkdir -p root/etc/e-smith/events/local/templates2expand/etc/sysconfig
+touch root/etc/e-smith/events/local/templates2expand/etc/sysconfig/kernel
 
 %install
 rm -rf $RPM_BUILD_ROOT
