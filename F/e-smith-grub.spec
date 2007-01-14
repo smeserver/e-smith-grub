@@ -24,7 +24,7 @@ Obsoletes: lilo
 AutoReqProv: no
 
 %changelog
-* Thu Jan 04 2006 Shad L. Lords <slords@mail.com> 1.0.0-5
+* Thu Jan 04 2007 Shad L. Lords <slords@mail.com> 1.0.0-5
 - Update /etc/sysconfig/kernel on boot too. [SME: 1930]
 
 * Thu Dec 07 2006 Shad L. Lords <slords@mail.com>
