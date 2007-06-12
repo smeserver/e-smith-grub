@@ -1,0 +1,10 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-grub-1.0.0/createlinks mezzanine_patched_e-smith-grub-1.0.0/createlinks
+--- e-smith-grub-1.0.0/createlinks	2006-03-16 17:34:15.000000000 +1100
++++ mezzanine_patched_e-smith-grub-1.0.0/createlinks	2006-04-05 14:27:44.558980739 +1000
+@@ -9,6 +9,4 @@
+ 	    post-upgrade
+ 	));
+ 
+-event_link("grub-install-raid", $_, "90") for (qw(post-install post-upgrade));
+-
+ safe_symlink("/etc/e-smith/events/actions/grub-install-raid", "root/sbin/e-smith/update-bootloader")

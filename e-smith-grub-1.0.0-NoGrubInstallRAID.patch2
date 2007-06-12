@@ -1,0 +1,71 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-grub-1.0.0/createlinks mezzanine_patched_e-smith-grub-1.0.0/createlinks
+--- e-smith-grub-1.0.0/createlinks	2006-12-05 12:57:01.000000000 -0700
++++ mezzanine_patched_e-smith-grub-1.0.0/createlinks	2006-12-05 12:55:15.000000000 -0700
+@@ -8,5 +8,3 @@
+ 	    post-install
+ 	    post-upgrade
+ 	));
+-
+-safe_symlink("/etc/e-smith/events/actions/grub-install-raid", "root/sbin/e-smith/update-bootloader")
+diff -Nur -x '*.orig' -x '*.rej' e-smith-grub-1.0.0/root/etc/e-smith/events/actions/grub-install-raid mezzanine_patched_e-smith-grub-1.0.0/root/etc/e-smith/events/actions/grub-install-raid
+--- e-smith-grub-1.0.0/root/etc/e-smith/events/actions/grub-install-raid	2006-03-15 23:34:15.000000000 -0700
++++ mezzanine_patched_e-smith-grub-1.0.0/root/etc/e-smith/events/actions/grub-install-raid	1969-12-31 17:00:00.000000000 -0700
+@@ -1,58 +0,0 @@
+-#!/bin/sh
+-#----------------------------------------------------------------------
+-# Copyright (C) 2005-2006 Mitel Networks Corporation
+-#
+-# This program is free software; you can redistribute it and/or modify
+-# it under the terms of the GNU General Public License as published by
+-# the Free Software Foundation; either version 2 of the License, or
+-# (at your option) any later version.
+-#
+-# This program is distributed in the hope that it will be useful,
+-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-# GNU General Public License for more details.
+-#
+-# You should have received a copy of the GNU General Public License
+-# along with this program; if not, write to the Free Software
+-# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307  USA
+-#----------------------------------------------------------------------
+-
+-PATH=$PATH:/sbin
+-export PATH
+-
+-HDZERO=$(grep hd0 /boot/grub/device.map | awk '{ print $2 }')
+-
+-# We should be able to do grub-install --recheck /dev/md1, but not in
+-# this version of grub-install
+-# We need to rebuild the device.map file since $HDONE didn't exist
+-# at install time.
+-echo "Forcing grub to rescan devices"
+-
+-grub-install --no-floppy --recheck $HDZERO
+-
+-echo "Calling grub-install on $HDZERO"
+-
+-grub --no-floppy --batch <<HERE
+-device (hd0) $HDZERO
+-root (hd0,0)
+-setup (hd0)
+-HERE
+-
+-HDONE=$(grep hd1 /boot/grub/device.map | awk '{ print $2 }')
+-
+-if [ -z "$HDONE" ]
+-then
+-    echo "Skipping grub-install on hd1"
+-    exit 0
+-fi
+-
+-echo "Calling grub-install on $HDONE"
+-
+-grub --no-floppy --batch <<HERE
+-device (hd0) $HDONE
+-root (hd0,0)
+-setup (hd0)
+-quit
+-HERE
+-
+-exit 0

@@ -1,0 +1,50 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-grub-1.0.0/root/etc/e-smith/templates/etc/sysconfig/kernel/template-begin mezzanine_patched_e-smith-grub-1.0.0/root/etc/e-smith/templates/etc/sysconfig/kernel/template-begin
+--- e-smith-grub-1.0.0/root/etc/e-smith/templates/etc/sysconfig/kernel/template-begin	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_e-smith-grub-1.0.0/root/etc/e-smith/templates/etc/sysconfig/kernel/template-begin	2007-01-04 13:46:55.000000000 -0700
+@@ -0,0 +1,8 @@
++{
++    if (open(KERNEL, "/etc/sysconfig/kernel"))
++    {
++        @lines = <KERNEL>;
++    }
++    close KERNEL;
++    $OUT = "";
++}
+diff -Nur -x '*.orig' -x '*.rej' e-smith-grub-1.0.0/root/etc/e-smith/templates/etc/sysconfig/kernel/template-end mezzanine_patched_e-smith-grub-1.0.0/root/etc/e-smith/templates/etc/sysconfig/kernel/template-end
+--- e-smith-grub-1.0.0/root/etc/e-smith/templates/etc/sysconfig/kernel/template-end	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_e-smith-grub-1.0.0/root/etc/e-smith/templates/etc/sysconfig/kernel/template-end	2007-01-04 13:46:55.000000000 -0700
+@@ -0,0 +1,6 @@
++{
++    foreach (@lines)
++    {
++	$OUT .= "$_\n";
++    }
++}
+diff -Nur -x '*.orig' -x '*.rej' e-smith-grub-1.0.0/root/etc/e-smith/templates/etc/sysconfig/kernel/UpdateDefault mezzanine_patched_e-smith-grub-1.0.0/root/etc/e-smith/templates/etc/sysconfig/kernel/UpdateDefault
+--- e-smith-grub-1.0.0/root/etc/e-smith/templates/etc/sysconfig/kernel/UpdateDefault	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_e-smith-grub-1.0.0/root/etc/e-smith/templates/etc/sysconfig/kernel/UpdateDefault	2007-01-04 13:46:55.000000000 -0700
+@@ -0,0 +1,19 @@
++{
++    return "" unless (defined $EVENT and $EVENT eq "local");
++
++    open (VERSION, "/proc/version") or die "Couldn't read /proc/version";
++    my $version = <VERSION>;
++    chomp $version;
++    $version =~ s/^Linux version ([^\s]+) .*/$1/;
++    close VERSION;
++
++    open (KERNEL, "rpm -qf --qf '%{NAME}' /boot/vmlinuz-$version|");
++    my $default = <KERNEL>;
++    chomp $default;
++    close KERNEL;
++
++    return "" unless $default;
++
++    @lines = map { s/DEFAULTKERNEL=.*/DEFAULTKERNEL=$default/; $_ } @lines;
++    $OUT = "";
++}
+diff -Nur -x '*.orig' -x '*.rej' e-smith-grub-1.0.0/root/etc/e-smith/templates.metadata/etc/sysconfig/kernel mezzanine_patched_e-smith-grub-1.0.0/root/etc/e-smith/templates.metadata/etc/sysconfig/kernel
+--- e-smith-grub-1.0.0/root/etc/e-smith/templates.metadata/etc/sysconfig/kernel	1969-12-31 17:00:00.000000000 -0700
++++ mezzanine_patched_e-smith-grub-1.0.0/root/etc/e-smith/templates.metadata/etc/sysconfig/kernel	2007-01-04 13:46:15.000000000 -0700
+@@ -0,0 +1 @@
++FILTER=sub { $_[0] =~ /^\s*$/ ? '' : $_[0] }
