@@ -2,15 +2,17 @@ Summary: e-smith module to configure grub
 %define name e-smith-grub
 Name: %{name}
 %define version 1.0.0
-%define release 5
+%define release 6
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
+Source1: smeserver.xpm.gz
 Patch0: e-smith-grub-1.0.0-NoGrubInstallRAID.patch
 Patch1: e-smith-grub-1.0.0-NoGrubInstallRAID.patch2
 Patch2: e-smith-grub-1.0.0-updatekernel.patch
+Patch3: e-smith-grub-1.0.0-splash.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildRequires: e-smith-devtools
 BuildArchitectures: noarch
@@ -23,6 +25,9 @@ Obsoletes: lilo
 AutoReqProv: no
 
 %changelog
+* Fri Jul 13 2007 Shad L. Lords <slords@mail.com> 1.0.0-6
+- Add smeserver splash screen for grub [SME: 3152]
+
 * Sun Apr 29 2007 Shad L. Lords <slords@mail.com>
 - Clean up spec so package can be built by koji/plague
 
@@ -161,9 +166,11 @@ e-smith server enhancement to grub bootloader.
 
 %prep
 %setup
+cp %{SOURCE1} root/boot/grub/
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 perl createlinks
