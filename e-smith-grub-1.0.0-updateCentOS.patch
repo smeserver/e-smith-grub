@@ -1,8 +1,0 @@
-diff -Nur -x '*.orig' -x '*.rej' e-smith-grub-1.0.0/root/etc/e-smith/templates/boot/grub/grub.conf/UpdateCentOS mezzanine_patched_e-smith-grub-1.0.0/root/etc/e-smith/templates/boot/grub/grub.conf/UpdateCentOS
---- e-smith-grub-1.0.0/root/etc/e-smith/templates/boot/grub/grub.conf/UpdateCentOS	1969-12-31 17:00:00.000000000 -0700
-+++ mezzanine_patched_e-smith-grub-1.0.0/root/etc/e-smith/templates/boot/grub/grub.conf/UpdateCentOS	2008-03-21 11:20:17.000000000 -0600
-@@ -0,0 +1,4 @@
-+{
-+    @lines = map { s/^title CentOS/title SME Server/; $_ } @lines;
-+    $OUT = "";
-+}
