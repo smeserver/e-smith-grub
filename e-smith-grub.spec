@@ -1,16 +1,17 @@
-# $Id: e-smith-grub.spec,v 1.4 2008/10/07 18:21:50 slords Exp $
+# $Id: e-smith-grub.spec,v 1.5 2009/11/04 12:55:30 snetram Exp $
 
 Summary: e-smith module to configure grub
 %define name e-smith-grub
 Name: %{name}
 %define version 2.2.0
-%define release 1
+%define release 2
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
 Source1: smeserver.xpm.gz
+Patch0: e-smith-grub-2.2.0-remove-hiddenmenu.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildRequires: e-smith-devtools
 BuildArchitectures: noarch
@@ -23,6 +24,9 @@ Obsoletes: lilo
 AutoReqProv: no
 
 %changelog
+* Wed Nov 4 2009 Jonathan Martens <smeserver-contribs@snetram.nl> 2.2.0-2.sme
+- Remove hiddenmenu entry from grub.conf [SME: 5546]
+
 * Tue Oct 7 2008 Shad L. Lords <slords@mail.com> 2.2.0-1.sme
 - Roll new stream to separate sme7/sme8 trees [SME: 4633]
 
@@ -170,6 +174,7 @@ e-smith server enhancement to grub bootloader.
 
 %prep
 %setup
+%patch0 -p1
 cp %{SOURCE1} root/boot/grub/
 
 %build
