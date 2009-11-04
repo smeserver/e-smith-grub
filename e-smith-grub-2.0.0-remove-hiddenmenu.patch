@@ -1,0 +1,9 @@
+diff -up e-smith-grub-2.2.0/root/etc/e-smith/templates/boot/grub/grub.conf/hiddenmenu.remove-hiddenmenu e-smith-grub-2.2.0/root/etc/e-smith/templates/boot/grub/grub.conf/hiddenmenu
+--- e-smith-grub-2.2.0/root/etc/e-smith/templates/boot/grub/grub.conf/hiddenmenu.remove-hiddenmenu	2009-11-04 13:44:51.000000000 +0100
++++ e-smith-grub-2.2.0/root/etc/e-smith/templates/boot/grub/grub.conf/hiddenmenu	2009-11-04 13:47:36.000000000 +0100
+@@ -0,0 +1,5 @@
++{
++    @lines = map { s/^hiddenmenu$// ; $_ } @lines;
++    $OUT = "";
++}
++
